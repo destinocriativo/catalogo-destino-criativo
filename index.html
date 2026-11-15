@@ -1,0 +1,1028 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>[hidden]{display:none!important}body{margin:0;font-size:14px}img{max-width:100%}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>Catálogo Destino Criativo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: barra de topo escura fixa, grade de cartões de produto com opções de quantidade em lista, carrinho em gaveta lateral */
+:root{
+  --bg:#f4f5f8;
+  --surface:#ffffff;
+  --ink:#141b2d;
+  --muted:#6b7285;
+  --line:#e3e6ee;
+  --navy:#111a33;
+  --navy-ink:#ffffff;
+  --accent:#2f5bd8;
+  --accent-soft:#eef2fd;
+  --wa:#1f7a3f;
+  --wa-hover:#186533;
+  --pill:#c8e6a6;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1320;--surface:#181d2c;--ink:#eceff6;--muted:#9aa1b4;--line:#2a3042;
+  --navy:#0a0e1a;--navy-ink:#ffffff;--accent:#6d8ff0;--accent-soft:#1d2540;
+  --wa:#24924b;--wa-hover:#2aa556;--pill:#9cc777;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1320;--surface:#181d2c;--ink:#eceff6;--muted:#9aa1b4;--line:#2a3042;
+  --navy:#0a0e1a;--navy-ink:#ffffff;--accent:#6d8ff0;--accent-soft:#1d2540;
+  --wa:#24924b;--wa-hover:#2aa556;--pill:#9cc777;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--navy)}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+svg{flex:none}
+
+/* ===== Topo ===== */
+header{background:var(--navy);color:var(--navy-ink);position:sticky;top:env(safe-area-inset-top,0px);z-index:8}
+header .wrap{display:flex;align-items:center;gap:16px;padding-block:18px}
+.brand{display:flex;align-items:center;gap:22px;min-width:0}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.3px;white-space:nowrap}
+.logo span{color:#f2b8d0}
+.tagline{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding-left:22px;border-left:1px solid rgba(255,255,255,.2);white-space:nowrap}
+.menu-wrap{position:relative;margin:0 auto}
+.menu-btn{display:flex;align-items:center;gap:10px;background:#fff;color:#141b2d;border:0;border-radius:10px;padding:12px 20px;font-weight:600;font-size:16px}
+.menu{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;min-width:220px;padding:6px;box-shadow:0 18px 40px -16px rgba(0,0,0,.35);z-index:9}
+.menu a{display:block;padding:10px 12px;border-radius:8px;color:inherit;text-decoration:none;font-weight:500}
+.menu a:hover{background:var(--accent-soft)}
+.menu .mcat{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:10px 12px 4px}
+.menu .msub{padding-left:22px}
+/* Categorias e abas */
+.filters{display:grid;gap:14px;padding-top:20px}
+.cats{display:flex;gap:10px;flex-wrap:wrap}
+.cat{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:12px 20px;font-weight:600;font-size:16px}
+.cat[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .cat[aria-pressed="true"]{background:var(--accent);border-color:var(--accent)}}
+:root[data-theme="dark"] .cat[aria-pressed="true"]{background:var(--accent);border-color:var(--accent)}
+.subs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.subtab{background:none;border:0;border-bottom:2.5px solid transparent;color:var(--muted);padding:10px 14px;font-weight:600;font-size:15px;margin-bottom:-1px}
+.subtab:hover{color:var(--ink)}
+.subtab[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+.actions{display:flex;gap:10px}
+.hbtn{display:flex;align-items:center;gap:10px;border-radius:12px;padding:12px 18px;font-weight:600;font-size:16px;text-decoration:none;white-space:nowrap}
+.hbtn.wa{background:var(--wa);color:#fff;border:0}
+.hbtn.wa:hover{background:var(--wa-hover)}
+.hbtn.cart{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.25)}
+.hbtn.cart:hover{border-color:rgba(255,255,255,.55)}
+.count{background:var(--pill);color:#1b3a10;font-size:13px;font-weight:700;min-width:24px;height:24px;border-radius:6px;display:inline-grid;place-items:center;padding:0 6px}
+@media (max-width:980px){.tagline{display:none}}
+@media (max-width:760px){
+  header .wrap{flex-wrap:wrap;gap:12px}
+  .menu-wrap{order:3;margin:0;flex:1 0 100%}
+  .menu-btn{width:100%;justify-content:center;padding:10px}
+  .menu{left:0;right:0;transform:none;min-width:0}
+  .actions{margin-left:auto}
+  .hbtn{padding:10px 12px}
+  .hbtn .txt{display:none}
+}
+
+/* ===== Abertura ===== */
+.intro .wrap{padding-block:32px 8px;display:grid;gap:6px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin:0}
+.intro h1{font-size:clamp(24px,3.6vw,32px);font-weight:700;margin:0;letter-spacing:-.3px;text-wrap:balance}
+.intro p{margin:0;color:var(--muted);max-width:60ch}
+.demo{justify-self:start;margin-top:6px;font-size:12px;font-weight:600;background:var(--accent-soft);color:var(--accent);border-radius:6px;padding:4px 10px}
+
+/* ===== Grade de produtos ===== */
+main .wrap{padding-block:24px 64px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+.product{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid;grid-row:span 5;grid-template-rows:subgrid;row-gap:0;max-width:340px}
+.grid{row-gap:20px}
+.sub{align-content:start}
+.product h3{font-size:18px;font-weight:600;text-align:center;margin:0;padding:16px 16px 14px;line-height:1.25;text-wrap:balance}
+.photo{position:relative;aspect-ratio:4/3;max-width:100%;background:radial-gradient(120% 100% at 30% 15%,#f7e7c4,#e8c98f);overflow:hidden}
+.tag{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.92);color:#141b2d;font-size:12px;font-weight:600;border-radius:999px;padding:5px 11px;z-index:2}
+/* Ilustração: cartões de agradecimento empilhados */
+.paper{position:absolute;width:52%;aspect-ratio:9/5;border-radius:4px;box-shadow:0 12px 24px -10px rgba(60,30,0,.45);display:grid;place-items:center}
+.paper.p1{background:#b3245f;left:14%;top:26%;transform:rotate(-10deg)}
+.paper.p2{background:#fffaf2;left:36%;top:42%;transform:rotate(6deg)}
+.paper.p1 i{font-style:normal;font-weight:800;color:#fbd7e6;font-size:15px;letter-spacing:.5px}
+.paper.p2 i{font-style:italic;font-weight:600;font-size:18px;background:linear-gradient(100deg,#a87b22,#f0d58c 45%,#b18527 75%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nophoto{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:repeating-linear-gradient(135deg,var(--bg) 0 12px,var(--surface) 12px 24px)}
+.photo:has(.nophoto){aspect-ratio:4/5;background:var(--bg)}
+.photo.media{aspect-ratio:4/5;background:#e9eaee}
+.photo.media video,.photo.media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.sub{padding:0 16px 14px;margin-top:-6px;display:grid;gap:6px;justify-items:center;text-align:center}
+.tier-pill{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:3px 10px}
+.sub p{margin:0;font-size:13px;color:var(--muted);line-height:1.45;text-wrap:balance}
+.finish{display:inline-flex;align-items:center;gap:7px;background:var(--navy);color:#fff;font-weight:700;font-size:14px;border-radius:8px;padding:7px 13px;letter-spacing:.1px}
+.finish svg{color:#e9cf8a}
+.chooser{display:grid;gap:6px;margin-bottom:4px}
+.clabel{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600}
+.chip:hover{border-color:var(--accent)}
+.lvl-note{margin:2px 0 0;font-size:12px;color:var(--muted);line-height:1.4}
+.photo.fit-contain img,.photo.fit-contain video{object-fit:contain;background:#fff}
+.photo.media.fit-contain{background:#fff;aspect-ratio:4/3}
+.opts{min-width:0;min-inline-size:0}
+.photo.fit-contain .tag{border:1px solid #e3e6ee}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.pills{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.hl-pill{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#7a5200;background:#fbeac0;border-radius:999px;padding:3px 10px}
+.sub p.desc{color:var(--ink);font-weight:500;font-size:14px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .finish{background:var(--accent)}}
+:root[data-theme="dark"] .finish{background:var(--accent)}
+.finish-photo{position:absolute;left:14px;bottom:14px;z-index:2;background:rgba(17,26,51,.88);color:#fff;font-size:13px;font-weight:700;border-radius:999px;padding:6px 12px}
+.thumb.img::before,.thumb.img::after{display:none}
+.thumb.img img{width:100%;height:100%;object-fit:cover;display:block}
+
+.opts{display:grid;gap:8px;padding:16px 14px 6px;border:0;margin:0;align-content:start}
+.opts legend{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.opt{display:grid;grid-template-columns:20px minmax(0,1fr) auto;align-items:center;gap:12px;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer}
+.opt:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.opt:has(input:checked){border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.opts .opt{gap:8px;padding:10px}
+.product .buy{flex-wrap:wrap;min-width:0}
+.product .buy b{font-size:20px}
+.product > *{min-width:0}
+.opts .opt .v{font-size:14px}
+.opt input{accent-color:var(--accent);width:18px;height:18px;margin:0}
+.opt .q{text-align:center;line-height:1.3}
+.opt .q b{display:block;font-weight:600;font-size:15px}
+.opt .q small{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.opt .v{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.buy{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:12px 14px 16px;margin-top:auto}
+.buy small{display:block;font-size:12px;color:var(--muted)}
+.buy b{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.3px}
+.add{display:flex;align-items:center;gap:8px;background:var(--navy);color:#fff;border:0;border-radius:10px;padding:12px 16px;font-weight:600;font-size:14px}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .add{background:var(--accent)}}
+:root[data-theme="dark"] .add{background:var(--accent)}
+.add:hover{filter:brightness(1.2)}
+
+/* ===== Carrinho ===== */
+.scrim{position:fixed;inset:0;background:rgba(8,11,20,.55);z-index:20}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(600px,100%);background:var(--surface);z-index:21;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-right:env(safe-area-inset-right,0px);box-shadow:-20px 0 40px -20px rgba(0,0,0,.4)}
+.d-head{display:flex;align-items:center;justify-content:space-between;padding:26px 32px;border-bottom:1px solid var(--line)}
+.d-head h2{margin:0;font-size:26px;font-weight:600;display:flex;align-items:center;gap:12px}
+.d-head .count{font-size:12px;min-width:22px;height:22px}
+.close{width:44px;height:44px;border-radius:50%;border:0;background:var(--bg);color:var(--ink);display:grid;place-items:center}
+.d-body{flex:1;overflow-y:auto;padding:12px 32px 24px;display:grid;gap:22px;align-content:start}
+.empty{color:var(--muted);text-align:center;padding:40px 0;margin:0}
+.item{display:grid;grid-template-columns:84px minmax(0,1fr) auto;gap:18px;align-items:start;padding-block:24px;border-bottom:1px solid var(--line)}
+.thumb{width:84px;height:84px;border-radius:10px;background:radial-gradient(120% 100% at 30% 15%,#f7e7c4,#e8c98f);position:relative;overflow:hidden}
+.thumb::before,.thumb::after{content:"";position:absolute;width:48px;height:27px;border-radius:2px;box-shadow:0 4px 8px rgba(60,30,0,.3)}
+.thumb::before{background:#b3245f;left:10px;top:22px;transform:rotate(-10deg)}
+.thumb::after{background:#fffaf2;left:26px;top:36px;transform:rotate(6deg)}
+.item h4{margin:0;font-size:17px;font-weight:700}
+.item .units{margin:4px 0 6px;font-size:13px;color:var(--muted)}
+.item .price{font-weight:700;font-size:18px;font-variant-numeric:tabular-nums;margin-bottom:12px}
+.stepper{display:flex;align-items:center;gap:14px}
+.stepper button{width:36px;height:36px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center}
+.stepper output{min-width:14px;text-align:center;font-weight:600;font-variant-numeric:tabular-nums}
+.stepper small{font-size:12px;color:var(--muted)}
+.trash{background:none;border:0;color:var(--muted);padding:4px}
+.trash:hover{color:#c0392b}
+.field{display:grid;gap:8px}
+.field label{font-size:15px;font-weight:500}
+.field label em{font-style:normal;font-size:12px;color:var(--muted)}
+.field input,.field textarea{width:100%;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:16px;font:inherit}
+.field textarea{min-height:94px;resize:vertical}
+.d-foot{border-top:1px solid var(--line);background:var(--bg);padding:24px 32px calc(20px + env(safe-area-inset-bottom,0px));display:grid;gap:18px}
+.total{display:flex;justify-content:space-between;align-items:center}
+.total span{font-size:15px;color:var(--muted)}
+.total b{font-size:30px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.5px}
+.send{display:flex;align-items:center;justify-content:center;gap:12px;background:var(--wa);color:#fff;text-decoration:none;border-radius:12px;padding:18px;font-weight:700;font-size:17px}
+.send:hover{background:var(--wa-hover)}
+.send[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.hint{margin:0;text-align:center;font-size:12px;color:var(--muted)}
+@media (max-width:560px){
+  .d-head,.d-body,.d-foot{padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:18px}
+  .d-head{padding-block:18px}
+  .item{grid-template-columns:64px minmax(0,1fr) auto;gap:12px}
+  .thumb{width:64px;height:64px}
+  .total b{font-size:24px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .drawer:not([hidden]){animation:slide .25s ease-out}
+  @keyframes slide{from{transform:translateX(40px);opacity:.5}}
+}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:14px;font-weight:500;z-index:30}
+</style>
+
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo">destino<span>criativo</span></div>
+      <div class="tagline">Catálogo digital</div>
+    </div>
+    <div class="menu-wrap">
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        Menu
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <nav class="menu" id="menu" hidden>
+      </nav>
+    </div>
+    <div class="actions">
+      <a class="hbtn wa" id="waTop" href="https://wa.me/" target="_blank" rel="noopener">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5 5 16a8.5 8.5 0 1 1 3.2 3.1Z"/></svg>
+        <span class="txt">WhatsApp</span>
+      </a>
+      <button class="hbtn cart" id="openCart" type="button" aria-label="Abrir carrinho">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg>
+        <span class="txt">Seu carrinho</span>
+        <span class="count" id="count">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="intro">
+  <div class="wrap">
+    <p class="eyebrow">Encontre o seu produto</p>
+    <h1>Impressos para a sua marca</h1>
+    <p>Escolha a quantidade, adicione ao carrinho e envie o pedido pelo WhatsApp. A gente confirma a arte, o prazo e o valor final com você.</p>
+  </div>
+</section>
+
+<main id="catalogo">
+  <div class="wrap">
+    <div class="filters">
+      <div class="cats" id="cats" role="group" aria-label="Categorias"></div>
+      <div class="subs" id="subs" role="tablist" aria-label="Tipos de produto"></div>
+    </div>
+    <div class="grid" id="grid" style="margin-top:24px"></div>
+  </div>
+</main>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-labelledby="cartTitle" hidden>
+  <div class="d-head">
+    <h2 id="cartTitle">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg>
+      Seu carrinho <span class="count" id="count2">0</span>
+    </h2>
+    <button class="close" id="closeCart" type="button" aria-label="Fechar carrinho">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <div class="d-body">
+    <div id="items"></div>
+    <div class="field">
+      <label for="nome">Seu nome <em>(opcional)</em></label>
+      <input id="nome" type="text" placeholder="Como podemos chamar você?" autocomplete="name">
+    </div>
+    <div class="field">
+      <label for="detalhes">Algum detalhe para o pedido? <em>(opcional)</em></label>
+      <textarea id="detalhes" placeholder="Conte o que você precisa…"></textarea>
+    </div>
+  </div>
+  <div class="d-foot">
+    <div class="total"><span>Total estimado</span><b id="total">R$ 0,00</b></div>
+    <a class="send" id="send" href="#" target="_blank" rel="noopener" aria-disabled="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5 5 16a8.5 8.5 0 1 1 3.2 3.1Z"/></svg>
+      Enviar pedido pelo WhatsApp
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+    </a>
+    <p class="hint">O WhatsApp abrirá com todos os itens descritos. Confirme o envio da mensagem para solicitar sua proposta.</p>
+  </div>
+</aside>
+
+<div class="toast" id="toast" hidden></div>
+
+<script>
+// ================= CONFIGURAÇÃO =================
+// Número do WhatsApp só com dígitos, com 55 + DDD (ex.: "5519999999999").
+// Vazio = o WhatsApp abre e pede para escolher o contato.
+const WHATSAPP = "5519982326042";
+
+// Lista de produtos. Para adicionar mais, copie um bloco { ... } e altere.
+const PRODUCTS = [
+  {
+    id: "certificado-10x9",
+    name: "Certificado de Garantia 10x9 cm",
+    category: "Joias",          // categoria (botão grande)
+    tab: "Certificados",        // aba dentro da categoria
+    tier: "Premium",
+    desc: "Mais sofisticação e destaque",
+    finish: "Verniz localizado",   // acabamento em destaque
+    spec: "Frente e verso · couchê fosco 300 g",
+    video: "media/certificado-10x9.mp4",
+    image: "media/certificado-10x9.jpg",
+    options: [
+      { qty: 250,  price: 380 },
+      { qty: 500,  price: 430 },
+      { qty: 1000, price: 515 }
+    ]
+  },
+  {
+    id: "certificado-10x9-hot-stamping",
+    name: "Certificado de Garantia 10x9 cm",
+    category: "Joias",
+    tab: "Certificados",
+    tier: "Luxo",
+    desc: "Nosso acabamento mais sofisticado, com hot stamping dourado ou prata",
+    finish: "Hot stamping na frente",
+    spec: "Frente e verso · couchê 300 g",
+    video: "media/certificado-hot-stamping.mp4",
+    image: "media/certificado-hot-stamping.jpg",
+    options: [
+      { qty: 25,  price: 170 },
+      { qty: 50,  price: 235 },
+      { qty: 100, price: 290 },
+      { qty: 500, price: 704 }
+    ]
+  },
+  {
+    id: "certificado-dobrado-premium",
+    name: "Certificado Dobrado 9x7,5 cm",
+    category: "Joias",
+    tab: "Certificados",
+    tier: "Premium",
+    finish: "Fosco com verniz localizado",
+    spec: "Aberto 9x15 cm · fechado 9x7,5 cm · frente e verso · couchê 300 g",
+    video: "media/cartao-dobrado-9x15.mp4",
+    pos: "50% 80%",            // enquadramento do vídeo
+    image: "media/cartao-dobrado-9x15.jpg",
+    options: [
+      { qty: 250,  price: 495, unit: "R$ 1,98" },
+      { qty: 500,  price: 575, unit: "R$ 1,15" },
+      { qty: 1000, price: 725, unit: "R$ 0,725" }
+    ]
+  },
+  {
+    id: "livreto-4x5",
+    name: "Livreto Certificado 4x5 cm",
+    category: "Joias",
+    tab: "Certificados",
+    desc: "Certificado com abertura lateral",
+    finish: "Verniz brilho total",
+    spec: "Aberto 9x5 cm · fechado 4x5 cm · frente e verso · couchê 250 g",
+    video: "media/livreto-4x5.mp4",
+    image: "media/livreto-4x5.jpg",
+    options: [
+      { qty: 500,  price: 270, unit: "R$ 0,54" },
+      { qty: 1000, price: 295, unit: "R$ 0,29" }
+    ]
+  },
+  {
+    id: "flip-9x5-hot-stamping",
+    name: "Flip Certificado Duplo 9x5 cm",
+    category: "Joias",
+    tab: "Certificados",
+    tier: "Luxo",
+    desc: "Certificado duplo com abertura superior. Nosso acabamento mais sofisticado, com hot stamping dourado ou prata",
+    finish: "Hot stamping na frente",
+    spec: "Fechado 9x5 cm · frente e verso · couchê fosco 300 g",
+    video: "media/flip-9x5.mp4",
+    image: "media/flip-9x5.jpg",
+    options: [
+      { qty: 50,  price: 335, unit: "R$ 6,70" },
+      { qty: 100, price: 380, unit: "R$ 3,80" },
+      { qty: 500, price: 795, unit: "R$ 1,59" }
+    ]
+  },
+  {
+    id: "panfleto-agradecimento-9x14",
+    name: "Panfleto de Agradecimento 9x14 cm",
+    category: "Joias",
+    tab: "Agradecimento",
+    also: [
+      { category: "Loja de roupas", tab: "Agradecimento" },
+      { category: "Cartão de agradecimento", tab: "Todos os modelos" },
+      { category: "Confeitaria", tab: "Agradecimento" }
+    ],
+    desc: "Panfleto de agradecimento para acompanhar o pedido",
+    spec: "9x14 cm · couchê 90 g",
+    video: "media/panfleto-9x14.mp4",
+    image: "media/panfleto-9x14-video.jpg",
+    // Em Joias aparece a foto do panfleto de joias
+    placeMedia: { "Joias": { image: "media/panfleto-9x14.jpg" } },
+    sizesLabel: "Impressão",
+    sizes: [
+      { label: "Só frente", options: [
+        { qty: 100,  price: 120, unit: "R$ 1,20" },
+        { qty: 500,  price: 220, unit: "R$ 0,44" },
+        { qty: 1000, price: 265, unit: "R$ 0,265" }
+      ]},
+      { label: "Frente e verso", options: [
+        { qty: 100,  price: 160, unit: "R$ 1,60" },
+        { qty: 500,  price: 290, unit: "R$ 0,58" },
+        { qty: 1000, price: 305, unit: "R$ 0,305" }
+      ]}
+    ]
+  },
+  {
+    id: "cartao-visita-luxo",
+    name: "Cartão de Visita",
+    category: "Cartão de visita",
+    tab: "Todos os modelos",
+    tier: "Luxo",
+    desc: "Nosso acabamento mais sofisticado, com hot stamping dourado ou prata",
+    finish: "Hot stamping na frente",
+    spec: "Couchê fosco 300 g",
+    video: "media/cartao-visita-luxo.mp4",
+    image: "media/cartao-visita-luxo.jpg",
+    options: [
+      { qty: 100,  price: 270, unit: "R$ 2,70" },
+      { qty: 500,  price: 470, unit: "R$ 0,94" },
+      { qty: 1000, price: 710, unit: "R$ 0,71" }
+    ]
+  },
+  {
+    id: "cartao-visita-essencial",
+    name: "Cartão de Visita",
+    category: "Cartão de visita",
+    tab: "Todos os modelos",
+    tier: "Essencial",
+    desc: "Ideal para quem busca um excelente custo-benefício sem abrir mão da qualidade",
+    finish: "Verniz brilho total",
+    spec: "Couchê 250 g",
+    video: "media/cartao-visita-essencial.mp4",
+    image: "media/cartao-visita-essencial.jpg",
+    options: [
+      { qty: 500,  price: 170, unit: "R$ 0,34" },
+      { qty: 1000, price: 195, unit: "R$ 0,195" }
+    ]
+  },
+  {
+    id: "cartao-visita-premium",
+    name: "Cartão de Visita",
+    category: "Cartão de visita",
+    tab: "Todos os modelos",
+    tier: "Premium",
+    desc: "Mais sofisticação e destaque",
+    finish: "Verniz localizado",
+    spec: "Couchê fosco 300 g",
+    video: "media/cartao-visita-premium.mp4",
+    image: "media/cartao-visita-premium.jpg",
+    options: [
+      { qty: 100,  price: 255, unit: "R$ 2,55" },
+      { qty: 500,  price: 280, unit: "R$ 0,56" },
+      { qty: 1000, price: 300, unit: "R$ 0,30" }
+    ]
+  },
+  {
+    id: "cartao-feed-premium",
+    name: "Cartão Feed",
+    category: "Cartão de visita",
+    tab: "Todos os modelos",
+    tier: "Premium",
+    desc: "Mais sofisticação e destaque",
+    finish: "Verniz localizado",
+    spec: "Couchê fosco 300 g",
+    video: "media/cartao-feed-premium.mp4",
+    image: "media/cartao-feed-premium.jpg",
+    options: [
+      { qty: 100,  price: 255, unit: "R$ 2,55" },
+      { qty: 500,  price: 280, unit: "R$ 0,56" },
+      { qty: 1000, price: 300, unit: "R$ 0,30" }
+    ]
+  },
+  {
+    id: "cartao-corte-personalizado",
+    name: "Cartão com Corte Personalizado",
+    category: "Cartão de visita",
+    tab: "Todos os modelos",
+    desc: "Formato exclusivo, cortado no desenho da sua marca",
+    finish: "Corte personalizado + verniz localizado",
+    spec: "Couchê fosco 300 g",
+    video: "media/cartao-corte-personalizado.mp4",
+    image: "media/cartao-corte-personalizado.jpg",
+    options: [
+      { qty: 500,  price: 390, unit: "R$ 0,78" },
+      { qty: 1000, price: 435, unit: "R$ 0,435" }
+    ]
+  },
+  {
+    id: "vela-agradecimento-cuidados-premium",
+    name: "Cartão Agradecimento + Cuidados 10x9 cm",
+    category: "Vela",
+    tab: "Cartões",
+    tier: "Premium",
+    desc: "Mais sofisticação e destaque",
+    finish: "Verniz localizado",
+    spec: "10x9 cm · frente e verso · couchê fosco 300 g",
+    video: "media/vela-cuidados-premium.mp4",
+    image: "media/vela-cuidados-premium.jpg",
+    options: [
+      { qty: 250,  price: 380, unit: "R$ 1,52" },
+      { qty: 500,  price: 430, unit: "R$ 0,86" },
+      { qty: 1000, price: 515, unit: "R$ 0,51" }
+    ]
+  },
+  {
+    id: "vela-agradecimento-cuidados-essencial",
+    name: "Cartão Agradecimento + Cuidados 10x9 cm",
+    category: "Vela",
+    tab: "Cartões",
+    tier: "Essencial",
+    desc: "Ideal para quem busca um excelente custo-benefício sem abrir mão da qualidade",
+    finish: "Verniz brilho total",
+    spec: "10x9 cm · frente e verso · couchê 250 g",
+    video: "media/vela-cuidados-essencial.mp4",
+    image: "media/vela-cuidados-essencial.jpg",
+    options: [
+      { qty: 100,  price: 180, unit: "R$ 1,80" },
+      { qty: 500,  price: 265, unit: "R$ 0,53" },
+      { qty: 1000, price: 315, unit: "R$ 0,31" }
+    ]
+  },
+  {
+    id: "tag-roupas-9x5-premium",
+    name: "Tag 9x5 cm",
+    category: "Loja de roupas",
+    tab: "Tags",
+    tier: "Premium",
+    desc: "Mais sofisticação e destaque",
+    finish: "Verniz localizado",
+    spec: "9x5 cm · frente e verso · couchê fosco 300 g",
+    video: "media/tag-roupas-premium.mp4",
+    image: "media/tag-roupas-premium.jpg",
+    options: [
+      { qty: 500,  price: 280, unit: "R$ 0,56" },
+      { qty: 1000, price: 335, unit: "R$ 0,335" }
+    ]
+  },
+  {
+    id: "tag-roupas-9x5-essencial",
+    name: "Tag 9x5 cm",
+    category: "Loja de roupas",
+    tab: "Tags",
+    tier: "Essencial",
+    desc: "Ideal para quem busca um excelente custo-benefício sem abrir mão da qualidade",
+    finish: "Verniz brilho total",
+    spec: "9x5 cm · frente e verso · couchê 250 g",
+    video: "media/tag-roupas-essencial.mp4",
+    image: "media/tag-roupas-essencial.jpg",
+    options: [
+      { qty: 500,  price: 195, unit: "R$ 0,39" },
+      { qty: 1000, price: 230, unit: "R$ 0,23" }
+    ]
+  },
+  {
+    id: "vela-adesivo-vinil",
+    name: "Adesivo Vinil",
+    category: "Vela",
+    tab: "Adesivo",
+    also: [{ category: "Adesivos", tab: "Todos os modelos" }],
+    desc: "Adesivo de segurança para vela. Escolha o tamanho e o acabamento",
+    spec: "Vinil fosco, brilho ou transparente",
+    video: "media/vela-adesivo-vinil.mp4",
+    image: "media/vela-adesivo-vinil.jpg",
+    // Acabamentos que a cliente escolhe
+    variants: { label: "Acabamento", values: ["Fosco", "Brilho", "Transparente"] },
+    // Tamanhos, cada um com as suas quantidades
+    sizes: [
+      { label: "4x4 cm", options: [
+        { qty: 100,  price: 36,   unit: "R$ 0,36" },
+        { qty: 250,  price: 57.5, unit: "R$ 0,23" },
+        { qty: 500,  price: 105,  unit: "R$ 0,21" },
+        { qty: 1000, price: 190,  unit: "R$ 0,19" }
+      ]},
+      { label: "5x5 cm", options: [
+        { qty: 100,  price: 42,   unit: "R$ 0,42" },
+        { qty: 250,  price: 87.5, unit: "R$ 0,35" },
+        { qty: 500,  price: 160,  unit: "R$ 0,32" },
+        { qty: 1000, price: 280,  unit: "R$ 0,28" }
+      ]}
+    ]
+  },
+  {
+    id: "sacola-pequena",
+    name: "Sacola Pequena",
+    category: "Joias",
+    tab: "Sacolas",
+    also: [{ category: "Sacolas", tab: "Todos os modelos" }],
+    desc: "Escolha o nível, o tamanho e a alça",
+    spec: "Prazo de produção: 30 dias úteis",
+    image: "media/sacola-pequena.jpg",
+    fit: "contain",
+    sizesLabel: "Nível",
+    sizes: [
+      { label: "Luxo", note: "Papel triplex 220 g · impressão colorida · laminação fosca · hot stamping ou verniz localizado", options: [
+        { qty: 100,  price: 1695, unit: "R$ 16,95" },
+        { qty: 250,  price: 2105, unit: "R$ 8,42" },
+        { qty: 500,  price: 2890, unit: "R$ 5,78" },
+        { qty: 1000, price: 4700, unit: "R$ 4,70" }
+      ]},
+      { label: "Premium", note: "Papel triplex 220 g · impressão colorida · laminação fosca ou brilho", options: [
+        { qty: 100,  price: 1290, unit: "R$ 12,90" },
+        { qty: 250,  price: 1645, unit: "R$ 6,58" },
+        { qty: 500,  price: 2345, unit: "R$ 4,69" },
+        { qty: 1000, price: 3985, unit: "R$ 3,985" }
+      ]},
+      { label: "Essencial", note: "Papel offset 180 g · impressão colorida", options: [
+        { qty: 100,  price: 1140, unit: "R$ 11,40" },
+        { qty: 250,  price: 1385, unit: "R$ 5,54" },
+        { qty: 500,  price: 1895, unit: "R$ 3,79" },
+        { qty: 1000, price: 3145, unit: "R$ 3,145" }
+      ]}
+    ],
+    variants: [
+      { label: "Tamanho", values: ["Tamanho 1 · 14,5 x 15 x 8 cm", "Tamanho 2 · 18 x 21 x 8 cm"] },
+      { label: "Alça", values: ["Cetim", "Gorgurão"] }
+    ]
+  },
+  {
+    id: "sacola-media",
+    name: "Sacola Média",
+    category: "Loja de roupas",
+    tab: "Sacolas",
+    also: [{ category: "Sacolas", tab: "Todos os modelos" }],
+    desc: "Escolha o nível e a alça",
+    spec: "35 cm largura · 24 cm altura · 10 cm fundo · prazo de produção: 30 dias úteis",
+    image: "media/sacola-media.jpg",
+    fit: "contain",
+    sizesLabel: "Nível",
+    sizes: [
+      { label: "Luxo", note: "Papel triplex 220 g · impressão colorida · laminação fosca · hot stamping ou verniz localizado", options: [
+        { qty: 100,  price: 1790, unit: "R$ 17,90" },
+        { qty: 250,  price: 2300, unit: "R$ 9,20" },
+        { qty: 500,  price: 3240, unit: "R$ 6,48" },
+        { qty: 1000, price: 5440, unit: "R$ 5,44" }
+      ]},
+      { label: "Premium", note: "Papel triplex 220 g · impressão colorida · laminação fosca ou brilho", options: [
+        { qty: 100,  price: 1380, unit: "R$ 13,80" },
+        { qty: 250,  price: 1840, unit: "R$ 7,36" },
+        { qty: 500,  price: 2690, unit: "R$ 5,38" },
+        { qty: 1000, price: 4720, unit: "R$ 4,72" }
+      ]},
+      { label: "Essencial", note: "Papel offset 180 g · impressão colorida", options: [
+        { qty: 100,  price: 1185, unit: "R$ 11,85" },
+        { qty: 250,  price: 1505, unit: "R$ 6,02" },
+        { qty: 500,  price: 2115, unit: "R$ 4,23" },
+        { qty: 1000, price: 3645, unit: "R$ 3,645" }
+      ]}
+    ],
+    variants: [
+      { label: "Alça", values: ["Cetim", "Gorgurão"] }
+    ]
+  },
+  {
+    id: "cartao-agradecimento-luxo",
+    name: "Cartão de Agradecimento 10x9 cm",
+    category: "Cartão de agradecimento",
+    tab: "Todos os modelos",
+    also: [
+      { category: "Joias", tab: "Agradecimento" },
+      { category: "Loja de roupas", tab: "Agradecimento" },
+      { category: "Confeitaria", tab: "Agradecimento" }
+    ],
+    tier: "Luxo",
+    desc: "Nosso acabamento mais sofisticado, com hot stamping dourado ou prata",
+    finish: "Hot stamping na frente",
+    spec: "10x9 cm · frente e verso · couchê fosco 300 g · produção: 8 a 12 dias úteis",
+    video: "media/cartao-agradecimento.mp4",
+    image: "media/cartao-agradecimento.jpg",
+    options: [
+      { qty: 25,  price: 170, unit: "R$ 6,80" },
+      { qty: 50,  price: 235, unit: "R$ 4,70" },
+      { qty: 100, price: 290, unit: "R$ 2,90" },
+      { qty: 500, price: 704, unit: "R$ 1,40" }
+    ]
+  },
+  {
+    id: "cartao-agradecimento-essencial",
+    name: "Cartão de Agradecimento 10x9 cm",
+    category: "Cartão de agradecimento",
+    tab: "Todos os modelos",
+    also: [
+      { category: "Joias", tab: "Agradecimento" },
+      { category: "Loja de roupas", tab: "Agradecimento" },
+      { category: "Confeitaria", tab: "Agradecimento" }
+    ],
+    tier: "Essencial",
+    desc: "Ideal para quem busca um excelente custo-benefício sem abrir mão da qualidade",
+    finish: "Verniz brilho total",
+    spec: "10x9 cm · frente e verso · couchê 250 g",
+    video: "media/agradecimento-essencial.mp4",
+    image: "media/agradecimento-essencial.jpg",
+    options: [
+      { qty: 100,  price: 180, unit: "R$ 1,80" },
+      { qty: 500,  price: 265, unit: "R$ 0,53" },
+      { qty: 1000, price: 315, unit: "R$ 0,31" }
+    ]
+  },
+  {
+    id: "fita-cetim-personalizada",
+    name: "Fita de Cetim Personalizada",
+    category: "Confeitaria",
+    tab: "Fita de cetim",
+    desc: "Fita de cetim com a sua marca escrita em dourado",
+    finish: "Escrita dourada",
+    spec: "Vendida por metro",
+    video: "media/fita-cetim.mp4",
+    pos: "50% 60%",
+    image: "media/fita-cetim.jpg",
+    unitMany: "metros", unitOne: "metro",
+    sizesLabel: "Largura",
+    sizes: [
+      { label: "15 mm", options: [
+        { qty: 10,  price: 55 },
+        { qty: 50,  price: 140 },
+        { qty: 100, price: 240 }
+      ]},
+      { label: "38 mm", options: [
+        { qty: 10,  price: 90 },
+        { qty: 50,  price: 230 },
+        { qty: 100, price: 420 }
+      ]}
+    ]
+  },
+  {
+    id: "adesivo-fecha-caixa-10x5",
+    name: "Adesivo Fecha Caixa 10x5 cm",
+    category: "Adesivos",
+    tab: "Todos os modelos",
+    also: [{ category: "Vela", tab: "Adesivo" }],
+    desc: "Adesivo para fechar caixas e embalagens",
+    finish: "Cantos arredondados",
+    spec: "10x5 cm · vinil",
+    image: "media/adesivo-fecha-caixa.jpg",
+    options: [
+      { qty: 100, price: 79,  unit: "R$ 0,79" },
+      { qty: 250, price: 165, unit: "R$ 0,66" },
+      { qty: 500, price: 295, unit: "R$ 0,59" }
+    ]
+  },
+  {
+    id: "adesivo-pote-pate-6x4",
+    name: "Adesivo para Pote Patê",
+    category: "Vela",
+    tab: "Adesivo",
+    desc: "Adesivo em vinil para pote patê. Escolha o tamanho e o acabamento",
+    spec: "Vinil",
+    video: "media/adesivo-pote-pate.mp4",
+    image: "media/adesivo-pote-pate.jpg",
+    variants: { label: "Acabamento", values: ["Brilho", "Fosco", "Transparente"] },
+    sizes: [
+      { label: "6x4 cm", options: [
+        { qty: 100, price: 39,   unit: "R$ 0,39" },
+        { qty: 250, price: 82.5, unit: "R$ 0,33" },
+        { qty: 500, price: 150,  unit: "R$ 0,30" }
+      ]},
+      // Foto própria para este tamanho
+      { label: "3,5x3,5 cm", image: "media/adesivo-pote-pate-3x3.jpg", options: [
+        { qty: 100, price: 35, unit: "R$ 0,35" },
+        { qty: 250, price: 50, unit: "R$ 0,20" },
+        { qty: 500, price: 90, unit: "R$ 0,18" }
+      ]}
+    ]
+  },
+  {
+    id: "adesivo-pote-whisky-5x6",
+    name: "Adesivo para Pote Whisky",
+    category: "Vela",
+    tab: "Adesivo",
+    desc: "Adesivo em vinil para pote whisky. Escolha o formato e o acabamento",
+    spec: "Vinil",
+    image: "media/adesivo-pote-whisky.jpg",
+    variants: { label: "Acabamento", values: ["Brilho", "Fosco", "Transparente"] },
+    sizesLabel: "Formato",
+    sizes: [
+      { label: "Retangular 5x6 cm", image: "media/adesivo-pote-whisky.jpg", options: [
+        { qty: 100, price: 51,    unit: "R$ 0,51" },
+        { qty: 250, price: 107.5, unit: "R$ 0,43" },
+        { qty: 500, price: 190,   unit: "R$ 0,38" }
+      ]},
+      { label: "Cantos arredondados 5x6 cm", image: "media/adesivo-pote-whisky-arredondado.jpg", options: [
+        { qty: 100, price: 51,    unit: "R$ 0,51" },
+        { qty: 250, price: 107.5, unit: "R$ 0,43" },
+        { qty: 500, price: 190,   unit: "R$ 0,38" }
+      ]},
+      { label: "Palito 6x2 cm", image: "media/adesivo-pote-whisky-palito.jpg", options: [
+        { qty: 100, price: 30, unit: "R$ 0,30" },
+        { qty: 250, price: 50, unit: "R$ 0,20" },
+        { qty: 500, price: 90, unit: "R$ 0,18" }
+      ]},
+      { label: "Redondo 5x5 cm", image: "media/adesivo-pote-whisky-redondo.jpg", options: [
+        { qty: 100,  price: 42,   unit: "R$ 0,42" },
+        { qty: 250,  price: 87.5, unit: "R$ 0,35" },
+        { qty: 500,  price: 160,  unit: "R$ 0,32" },
+        { qty: 1000, price: 280,  unit: "R$ 0,28" }
+      ]}
+    ]
+  },
+  {
+    id: "tag-confeitaria-4x48",
+    name: "Tag Personalizada 4x4,8 cm",
+    category: "Confeitaria",
+    tab: "Tag",
+    desc: "Tag personalizada para doces e embalagens",
+    finish: "Verniz brilho",
+    spec: "4x4,8 cm · couchê 250 g",
+    video: "media/tag-confeitaria.mp4",
+    image: "media/tag-confeitaria.jpg",
+    sizesLabel: "Impressão",
+    sizes: [
+      { label: "Só frente", options: [ { qty: 1000, price: 185, unit: "R$ 0,185" } ] },
+      { label: "Frente e verso", options: [ { qty: 1000, price: 210, unit: "R$ 0,21" } ] }
+    ]
+  }
+];
+
+// ================= FUNCIONAMENTO =================
+const brl = v => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+const un = n => n.toLocaleString("pt-BR");
+const $ = id => document.getElementById(id);
+const choice = {};      // produto -> índice da opção marcada
+const cart = [];        // { pid, oi, count }
+
+// Categorias e abas, na ordem em que aparecem na lista de produtos
+// Cada produto pode aparecer em mais de um lugar (campo "also")
+const placesOf = p => [{ category: p.category, tab: p.tab }, ...(p.also || [])];
+// Ordem: primeiro os lugares principais de cada produto, depois os extras
+const PLACES = [...PRODUCTS.map(p => placesOf(p)[0]), ...PRODUCTS.flatMap(p => p.also || [])];
+const CATS = [...new Set(PLACES.map(x => x.category))];
+// Ordem fixa das abas (quando definida)
+const TAB_ORDER = { "Confeitaria": ["Adesivo", "Tag", "Cartão", "Agradecimento", "Fita de cetim"] };
+const tabsOf = c => {
+  const t = [...new Set(PLACES.filter(x => x.category === c).map(x => x.tab))];
+  const o = TAB_ORDER[c]; if (!o) return t;
+  const r = x => (o.indexOf(x) + 1) || 99;
+  return t.sort((a, b) => r(a) - r(b));
+};
+const inView = p => placesOf(p).some(x => x.category === curCat && x.tab === curTab);
+let curCat = CATS[0], curTab = tabsOf(CATS[0])[0];
+
+function renderFilters(){
+  $("cats").innerHTML = CATS.map(c =>
+    `<button type="button" class="cat" data-cat="${c}" aria-pressed="${c === curCat}">${c}</button>`).join("");
+  $("subs").hidden = tabsOf(curCat).length < 2;
+  $("subs").innerHTML = tabsOf(curCat).map(t =>
+    `<button type="button" role="tab" class="subtab" data-tab="${t}" aria-selected="${t === curTab}">${t}</button>`).join("");
+  $("menu").innerHTML = CATS.map(c =>
+    `<div class="mcat">${c}</div>` + tabsOf(c).map(t =>
+      `<a href="#catalogo" class="msub" data-cat="${c}" data-tab="${t}">${t}</a>`).join("")).join("");
+}
+function go(c, t){ curCat = c; curTab = t ?? tabsOf(c)[0]; renderFilters(); renderGrid(); }
+$("cats").addEventListener("click", e => { const b = e.target.closest(".cat"); if (b) go(b.dataset.cat); });
+$("subs").addEventListener("click", e => { const b = e.target.closest(".subtab"); if (b) go(curCat, b.dataset.tab); });
+$("menu").addEventListener("click", e => { const a = e.target.closest("a[data-cat]"); if (a) go(a.dataset.cat, a.dataset.tab); });
+
+const sizeSel = {}, varSel = {};
+const qtyTxt = (p, n) => `${un(n)} ${p.unitMany || "unidades"}`;
+const optsOf = (p, si = sizeSel[p.id] ?? 0) => p.sizes ? p.sizes[si].options : p.options;
+const varsOf = p => p.variants ? [].concat(p.variants) : [];
+
+function renderGrid(){
+  $("grid").innerHTML = PRODUCTS.filter(inView).map(p => {
+    choice[p.id] ??= 0;
+    sizeSel[p.id] ??= 0; varSel[p.id] ??= varsOf(p).map(() => 0);
+    const opts = optsOf(p);
+    if (choice[p.id] >= opts.length) choice[p.id] = 0;
+    const sel = opts[choice[p.id]];
+    const sz = p.sizes && p.sizes[sizeSel[p.id]];
+    const m = (sz && (sz.image || sz.video) && sz) || (p.placeMedia && p.placeMedia[curCat]) || p;
+    return `<article class="product">
+      <h3>${p.name}</h3>
+      ${true ? `<div class="sub">${p.tier || p.highlight ? `<div class="pills">${p.tier ? `<span class="tier-pill">${p.tier}</span>` : ""}${p.highlight ? `<span class="hl-pill">★ ${p.highlight}</span>` : ""}</div>` : ""}${p.finish ? `<span class="finish"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.2 6.6L21 11l-6.8 2.4L12 20l-2.2-6.6L3 11l6.8-2.4z"/></svg>Acabamento: ${p.finish}</span>` : ""}${p.desc ? `<p class="desc">${p.desc}</p>` : ""}${p.spec ? `<p>${p.spec}</p>` : ""}</div>` : ""}
+      <div class="photo${m.video || m.image ? " media" : ""}${p.fit === "contain" ? " fit-contain" : ""}">
+        <span class="tag">${tabsOf(curCat).length > 1 ? curTab : curCat}</span>
+        ${p.finish ? `<span class="finish-photo">${p.finish}</span>` : ""}
+        ${m.video
+          ? `<video src="${m.video}" ${p.pos ? `style="object-position:${p.pos}"` : ""} ${m.image ? `poster="${m.image}"` : ""} autoplay muted loop playsinline preload="auto" aria-label="Vídeo do ${p.name}"></video>`
+          : m.image
+          ? `<img src="${m.image}" alt="${p.name}">`
+          : `<div class="nophoto">Foto em breve</div>`}
+      </div>
+      <fieldset class="opts">
+        <legend>Quantidade de ${p.name}</legend>
+        ${p.sizes ? `<div class="chooser"><span class="clabel">${p.sizesLabel || "Tamanho"}</span><div class="chips">${p.sizes.map((z, i) => `<button type="button" class="chip" data-pid="${p.id}" data-size="${i}" aria-pressed="${i === sizeSel[p.id]}">${z.label}</button>`).join("")}</div>${p.sizes[sizeSel[p.id]].note ? `<p class="lvl-note">${p.sizes[sizeSel[p.id]].note}</p>` : ""}</div>` : ""}
+        ${varsOf(p).map((v, k) => `<div class="chooser"><span class="clabel">${v.label}</span><div class="chips">${v.values.map((val, i) => `<button type="button" class="chip" data-pid="${p.id}" data-var="${k}:${i}" aria-pressed="${i === varSel[p.id][k]}">${val}</button>`).join("")}</div></div>`).join("")}
+        ${opts.map((o, i) => `
+          <label class="opt">
+            <input type="radio" name="opt-${p.id}" id="opt-${p.id}-${i}" value="${i}" ${i === choice[p.id] ? "checked" : ""}>
+            <span class="q"><b>${qtyTxt(p, o.qty)}</b><small>${o.unit || brl(Math.floor(o.price / o.qty * 100 + 1e-6) / 100)} por ${p.unitOne || "unidade"}</small></span>
+            <span class="v">${brl(o.price)}</span>
+          </label>`).join("")}
+      </fieldset>
+      <div class="buy">
+        <div><small>Valor da opção</small><b id="val-${p.id}">${brl(sel.price)}</b></div>
+        <button type="button" class="add" data-pid="${p.id}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          Adicionar
+        </button>
+      </div>
+    </article>`;
+  }).join("");
+}
+
+$("grid").addEventListener("change", e => {
+  if (e.target.type !== "radio") return;
+  const pid = e.target.name.slice(4);
+  choice[pid] = +e.target.value;
+  const p = PRODUCTS.find(x => x.id === pid);
+  $("val-" + pid).textContent = brl(optsOf(p)[choice[pid]].price);
+});
+$("grid").addEventListener("click", e => {
+  const ch = e.target.closest(".chip");
+  if (ch){
+    const pid = ch.dataset.pid;
+    if (ch.dataset.size !== undefined) sizeSel[pid] = +ch.dataset.size;
+    if (ch.dataset.var !== undefined){ const [k, i] = ch.dataset.var.split(":").map(Number); varSel[pid][k] = i; }
+    renderGrid(); return;
+  }
+  const b = e.target.closest(".add"); if (!b) return;
+  const pid = b.dataset.pid, oi = choice[pid], si = sizeSel[pid] ?? 0, vi = (varSel[pid] || []).join(",");
+  const ex = cart.find(c => c.pid === pid && c.oi === oi && c.si === si && c.vi === vi);
+  ex ? ex.count++ : cart.push({ pid, oi, si, vi, count: 1 });
+  renderCart(); toast("Adicionado ao carrinho");
+});
+
+const line = c => {
+  const p = PRODUCTS.find(x => x.id === c.pid);
+  const vi = String(c.vi).split(",").map(Number);
+  const pick = [p.sizes && p.sizes[c.si].label, ...varsOf(p).map((v, k) => (val => val.includes(v.label) ? val : `${v.label}: ${val}`)(v.values[vi[k] || 0]))].filter(Boolean).join(" · ");
+  return { p, o: optsOf(p, c.si)[c.oi], pick };
+};
+const total = () => cart.reduce((s, c) => s + line(c).o.price * c.count, 0);
+
+function renderCart(){
+  const n = cart.reduce((s, c) => s + c.count, 0);
+  $("count").textContent = $("count2").textContent = n;
+  $("items").innerHTML = cart.length ? cart.map((c, i) => {
+    const { p, o, pick } = line(c);
+    return `<div class="item">
+      <div class="thumb${p.image ? " img" : ""}" aria-hidden="true">${p.image ? `<img src="${p.image}" alt="">` : ""}</div>
+      <div>
+        <h4>${p.name}</h4>
+        <div class="units">${qtyTxt(p, o.qty)}${pick ? ` · ${pick}` : ""}${p.finish ? ` · ${p.finish}` : ""}${p.tier ? ` · ${p.tier}` : ""}</div>
+        <div class="price">${brl(o.price * c.count)}</div>
+        <div class="stepper">
+          <button type="button" data-act="dec" data-i="${i}" aria-label="Diminuir">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+          <output>${c.count}</output>
+          <button type="button" data-act="inc" data-i="${i}" aria-label="Aumentar">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+          <small>${qtyTxt(p, o.qty * c.count)}</small>
+        </div>
+      </div>
+      <button type="button" class="trash" data-act="rm" data-i="${i}" aria-label="Remover item">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></svg>
+      </button>
+    </div>`;
+  }).join("") : `<p class="empty">Seu carrinho está vazio. Escolha um produto e toque em Adicionar.</p>`;
+  $("total").textContent = brl(total());
+  updateLink();
+}
+$("items").addEventListener("click", e => {
+  const b = e.target.closest("button[data-act]"); if (!b) return;
+  const i = +b.dataset.i, c = cart[i];
+  if (b.dataset.act === "inc") c.count++;
+  if (b.dataset.act === "dec") c.count--;
+  if (b.dataset.act === "rm" || c.count < 1) cart.splice(i, 1);
+  renderCart();
+});
+
+function message(){
+  const nome = $("nome").value.trim(), det = $("detalhes").value.trim();
+  let m = "Olá! Gostaria de solicitar uma proposta:\n\n";
+  cart.forEach(c => {
+    const { p, o, pick } = line(c);
+    const extra = [pick, p.finish && `Acabamento: ${p.finish}`, p.tier, p.spec].filter(Boolean).join(" · ");
+    m += `• ${p.name}${extra ? `\n   ${extra}` : ""}\n   ${qtyTxt(p, o.qty * c.count)} — ${brl(o.price * c.count)}\n`;
+  });
+  m += `\nTotal estimado: ${brl(total())}`;
+  if (nome) m += `\nNome: ${nome}`;
+  if (det) m += `\nDetalhes: ${det}`;
+  return m;
+}
+function updateLink(){
+  const a = $("send");
+  if (!cart.length){ a.setAttribute("aria-disabled", "true"); a.href = "#"; return; }
+  a.setAttribute("aria-disabled", "false");
+  a.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message())}`;
+}
+$("nome").addEventListener("input", updateLink);
+$("detalhes").addEventListener("input", updateLink);
+$("waTop").href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent("Olá! Vim pelo catálogo digital e gostaria de mais informações.")}`;
+
+// Carrinho abrir/fechar
+const openCart = () => { $("drawer").hidden = $("scrim").hidden = false; };
+const closeCart = () => { $("drawer").hidden = $("scrim").hidden = true; };
+$("openCart").addEventListener("click", openCart);
+$("closeCart").addEventListener("click", closeCart);
+$("scrim").addEventListener("click", closeCart);
+document.addEventListener("keydown", e => { if (e.key === "Escape"){ closeCart(); closeMenu(); } });
+
+// Menu
+const closeMenu = () => { $("menu").hidden = true; $("menuBtn").setAttribute("aria-expanded", "false"); };
+$("menuBtn").addEventListener("click", e => {
+  e.stopPropagation();
+  const open = $("menu").hidden;
+  $("menu").hidden = !open; $("menuBtn").setAttribute("aria-expanded", String(open));
+});
+document.addEventListener("click", e => { if (!e.target.closest(".menu-wrap")) closeMenu(); });
+$("menu").addEventListener("click", closeMenu);
+
+let tt;
+function toast(t){ const el = $("toast"); el.textContent = t; el.hidden = false; clearTimeout(tt); tt = setTimeout(() => el.hidden = true, 1500); }
+
+renderFilters(); renderGrid(); renderCart();
+</script>
+
+</html>
