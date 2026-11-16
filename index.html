@@ -61,7 +61,10 @@ header .wrap{display:flex;align-items:center;gap:16px;padding-block:18px}
 .menu .msub{padding-left:22px}
 /* Categorias e abas */
 .filters{display:grid;gap:14px;padding-top:20px}
-.cats{display:flex;gap:10px;flex-wrap:wrap}
+.cats{display:grid;gap:14px}
+.cat-row{display:grid;gap:8px}
+.row-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.cat-btns{display:flex;gap:10px;flex-wrap:wrap}
 .cat{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:12px 20px;font-weight:600;font-size:16px}
 .cat[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .cat[aria-pressed="true"]{background:var(--accent);border-color:var(--accent)}}
@@ -840,7 +843,9 @@ const placesOf = p => [{ category: p.category, tab: p.tab }, ...(p.also || [])];
 const PLACES = [...PRODUCTS.map(p => placesOf(p)[0]), ...PRODUCTS.flatMap(p => p.also || [])];
 const CATS = [...new Set(PLACES.map(x => x.category))];
 // Nome que aparece no botão da categoria (quando diferente)
-const CAT_LABEL = { "Joias": "Segmento Joias", "Vela": "Segmento Vela" };
+// Segmentos (primeira linha de botões); o resto aparece em "Produtos"
+const SEGMENTOS = ["Joias", "Vela", "Loja de roupas", "Confeitaria"];
+const CAT_LABEL = { "Joias": "Segmento Joias", "Vela": "Segmento Vela", "Loja de roupas": "Segmento Loja de roupas", "Confeitaria": "Segmento Confeitaria" };
 // Ordem fixa das abas (quando definida)
 const TAB_ORDER = { "Confeitaria": ["Adesivo", "Tag", "Cartão", "Agradecimento", "Fita de cetim"] };
 const tabsOf = c => {
@@ -853,15 +858,17 @@ const inView = p => placesOf(p).some(x => x.category === curCat && x.tab === cur
 let curCat = CATS[0], curTab = tabsOf(CATS[0])[0];
 
 function renderFilters(){
-  $("cats").innerHTML = CATS.map(c =>
-    `<button type="button" class="cat" data-cat="${c}" aria-pressed="${c === curCat}">${CAT_LABEL[c] || c}</button>`).join("");
+  const btn = c => `<button type="button" class="cat" data-cat="${c}" aria-pressed="${c === curCat}">${CAT_LABEL[c] || c}</button>`;
+  const segs = SEGMENTOS.filter(c => CATS.includes(c)), prods = CATS.filter(c => !SEGMENTOS.includes(c));
+  $("cats").innerHTML =
+    `<div class="cat-row"><span class="row-label">Segmentos</span><div class="cat-btns">${segs.map(btn).join("")}</div></div>` +
+    (prods.length ? `<div class="cat-row"><span class="row-label">Produtos</span><div class="cat-btns">${prods.map(btn).join("")}</div></div>` : "");
   $("subs").hidden = tabsOf(curCat).length < 2;
   $("subs").innerHTML = tabsOf(curCat).map(t =>
     `<button type="button" role="tab" class="subtab" data-tab="${t}" aria-selected="${t === curTab}">${t}</button>`).join("");
   // Menu: primeiro os segmentos (com as abas), depois os outros produtos
-  const SEGMENTOS = ["Joias", "Vela"];
   const seg = SEGMENTOS.filter(c => CATS.includes(c)).map(c =>
-    `<div class="mcat">Produtos segmento ${c}</div>` + tabsOf(c).map(t =>
+    `<div class="mcat">Produtos ${CAT_LABEL[c] || c}</div>` + tabsOf(c).map(t =>
       `<a href="#catalogo" class="msub" data-cat="${c}" data-tab="${t}">${t}</a>`).join("")).join("");
   const resto = CATS.filter(c => !SEGMENTOS.includes(c));
   $("menu").innerHTML = seg + (resto.length ? `<div class="mcat">Produtos</div>` + resto.map(c =>
