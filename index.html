@@ -839,6 +839,8 @@ const placesOf = p => [{ category: p.category, tab: p.tab }, ...(p.also || [])];
 // Ordem: primeiro os lugares principais de cada produto, depois os extras
 const PLACES = [...PRODUCTS.map(p => placesOf(p)[0]), ...PRODUCTS.flatMap(p => p.also || [])];
 const CATS = [...new Set(PLACES.map(x => x.category))];
+// Nome que aparece no botão da categoria (quando diferente)
+const CAT_LABEL = { "Joias": "Segmento Joias", "Vela": "Segmento Vela" };
 // Ordem fixa das abas (quando definida)
 const TAB_ORDER = { "Confeitaria": ["Adesivo", "Tag", "Cartão", "Agradecimento", "Fita de cetim"] };
 const tabsOf = c => {
@@ -852,7 +854,7 @@ let curCat = CATS[0], curTab = tabsOf(CATS[0])[0];
 
 function renderFilters(){
   $("cats").innerHTML = CATS.map(c =>
-    `<button type="button" class="cat" data-cat="${c}" aria-pressed="${c === curCat}">${c}</button>`).join("");
+    `<button type="button" class="cat" data-cat="${c}" aria-pressed="${c === curCat}">${CAT_LABEL[c] || c}</button>`).join("");
   $("subs").hidden = tabsOf(curCat).length < 2;
   $("subs").innerHTML = tabsOf(curCat).map(t =>
     `<button type="button" role="tab" class="subtab" data-tab="${t}" aria-selected="${t === curTab}">${t}</button>`).join("");
