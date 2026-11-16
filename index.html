@@ -56,6 +56,8 @@ header .wrap{display:flex;align-items:center;gap:16px;padding-block:18px}
 .menu a{display:block;padding:10px 12px;border-radius:8px;color:inherit;text-decoration:none;font-weight:500}
 .menu a:hover{background:var(--accent-soft)}
 .menu .mcat{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:10px 12px 4px}
+.menu .mcat:not(:first-child){border-top:1px solid var(--line);margin-top:6px;padding-top:12px}
+.menu{max-height:70vh;overflow-y:auto}
 .menu .msub{padding-left:22px}
 /* Categorias e abas */
 .filters{display:grid;gap:14px;padding-top:20px}
@@ -854,9 +856,14 @@ function renderFilters(){
   $("subs").hidden = tabsOf(curCat).length < 2;
   $("subs").innerHTML = tabsOf(curCat).map(t =>
     `<button type="button" role="tab" class="subtab" data-tab="${t}" aria-selected="${t === curTab}">${t}</button>`).join("");
-  $("menu").innerHTML = CATS.map(c =>
-    `<div class="mcat">${c}</div>` + tabsOf(c).map(t =>
+  // Menu: primeiro os segmentos (com as abas), depois os outros produtos
+  const SEGMENTOS = ["Joias", "Vela"];
+  const seg = SEGMENTOS.filter(c => CATS.includes(c)).map(c =>
+    `<div class="mcat">Produtos segmento ${c}</div>` + tabsOf(c).map(t =>
       `<a href="#catalogo" class="msub" data-cat="${c}" data-tab="${t}">${t}</a>`).join("")).join("");
+  const resto = CATS.filter(c => !SEGMENTOS.includes(c));
+  $("menu").innerHTML = seg + (resto.length ? `<div class="mcat">Produtos</div>` + resto.map(c =>
+      `<a href="#catalogo" class="msub" data-cat="${c}">${c}</a>`).join("") : "");
 }
 function go(c, t){ curCat = c; curTab = t ?? tabsOf(c)[0]; renderFilters(); renderGrid(); }
 $("cats").addEventListener("click", e => { const b = e.target.closest(".cat"); if (b) go(b.dataset.cat); });
