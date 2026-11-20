@@ -65,6 +65,8 @@ header .wrap{display:flex;align-items:center;gap:16px;padding-block:18px}
 .cat-row{display:grid;gap:8px}
 .row-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .cat-btns{display:flex;gap:10px;flex-wrap:wrap}
+.product{scroll-margin-top:160px;transition:box-shadow .3s}
+.product.is-focus{box-shadow:0 0 0 3px var(--accent)}
 .share-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .share-link{background:none;border:0;padding:0;color:var(--accent);font-weight:600;font-size:13px;text-decoration:underline;text-underline-offset:3px}
 .share-ok{font-size:13px;color:var(--muted);word-break:break-all}
@@ -833,6 +835,7 @@ const PRODUCTS = [
   },
   {
     id: "adesivo-bopp-hot-stamping",
+    link: "adesivo-hot",           // link direto: destinocriativo.com.br/#adesivo-hot
     name: "Adesivo Bopp Fosco com Hot Stamping",
     category: "Adesivos",
     tab: "Todos os modelos",
@@ -959,13 +962,22 @@ const pageSlug = (c, t) => slug(c) + (tabsOf(c).length > 1 ? "-" + slug(t) : "")
 function fromHash(){
   const h = decodeURIComponent(location.hash.slice(1));
   if (!h) return false;
+  const prod = PRODUCTS.find(p => h === p.link || h === p.id);
+  if (prod) { curCat = prod.category; curTab = prod.tab; focusId = prod.id; return true; }
   for (const c of CATS) for (const t of tabsOf(c)) {
     if (h === pageSlug(c, t) || (h === slug(c))) { curCat = c; curTab = h === slug(c) ? tabsOf(c)[0] : t; return true; }
   }
   return false;
 }
+let focusId = null;
+function focusProduct(){
+  if (!focusId) return;
+  const el = document.querySelector(`.product[data-id="${focusId}"]`); focusId = null;
+  if (!el) return;
+  setTimeout(() => { el.scrollIntoView({ behavior: "smooth", block: "start" }); el.classList.add("is-focus"); setTimeout(() => el.classList.remove("is-focus"), 2600); }, 150);
+}
 function setHash(){ try { history.replaceState(null, "", "#" + pageSlug(curCat, curTab)); } catch (e) {} }
-window.addEventListener("hashchange", () => { if (fromHash()) { renderFilters(); renderGrid(); } });
+window.addEventListener("hashchange", () => { if (fromHash()) { renderFilters(); renderGrid(); focusProduct(); } });
 function go(c, t){ curCat = c; curTab = t ?? tabsOf(c)[0]; setHash(); renderFilters(); renderGrid(); }
 $("copyLink").addEventListener("click", async () => {
   const url = location.href.split("#")[0] + "#" + pageSlug(curCat, curTab);
@@ -991,7 +1003,7 @@ function renderGrid(){
     const sel = opts[choice[p.id]];
     const sz = p.sizes && p.sizes[sizeSel[p.id]];
     const m = (sz && (sz.image || sz.video) && sz) || (p.placeMedia && p.placeMedia[curCat]) || p;
-    return `<article class="product">
+    return `<article class="product" data-id="${p.id}">
       <h3>${p.name}</h3>
       ${true ? `<div class="sub">${p.tier || p.highlight ? `<div class="pills">${p.tier ? `<span class="tier-pill">${p.tier}</span>` : ""}${p.highlight ? `<span class="hl-pill">★ ${p.highlight}</span>` : ""}</div>` : ""}${p.finish ? `<span class="finish"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.2 6.6L21 11l-6.8 2.4L12 20l-2.2-6.6L3 11l6.8-2.4z"/></svg>Acabamento: ${p.finish}</span>` : ""}${p.desc ? `<p class="desc">${p.desc}</p>` : ""}${p.spec ? `<p>${p.spec}</p>` : ""}</div>` : ""}
       <div class="photo${m.video || m.image ? " media" : ""}${p.fit === "contain" ? " fit-contain" : ""}">
@@ -1136,7 +1148,7 @@ $("menu").addEventListener("click", closeMenu);
 let tt;
 function toast(t){ const el = $("toast"); el.textContent = t; el.hidden = false; clearTimeout(tt); tt = setTimeout(() => el.hidden = true, 1500); }
 
-fromHash(); renderFilters(); renderGrid(); renderCart();
+fromHash(); renderFilters(); renderGrid(); renderCart(); focusProduct();
 </script>
 
 </html>
