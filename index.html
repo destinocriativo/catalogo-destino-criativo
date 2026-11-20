@@ -65,6 +65,9 @@ header .wrap{display:flex;align-items:center;gap:16px;padding-block:18px}
 .cat-row{display:grid;gap:8px}
 .row-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .cat-btns{display:flex;gap:10px;flex-wrap:wrap}
+.share-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.share-link{background:none;border:0;padding:0;color:var(--accent);font-weight:600;font-size:13px;text-decoration:underline;text-underline-offset:3px}
+.share-ok{font-size:13px;color:var(--muted);word-break:break-all}
 .cat{border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:12px;padding:12px 20px;font-weight:600;font-size:16px}
 .cat[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .cat[aria-pressed="true"]{background:var(--accent);border-color:var(--accent)}}
@@ -257,6 +260,7 @@ main .wrap{padding-block:24px 64px}
     <div class="filters">
       <div class="cats" id="cats" role="group" aria-label="Categorias"></div>
       <div class="subs" id="subs" role="tablist" aria-label="Tipos de produto"></div>
+      <div class="share-row"><button type="button" class="share-link" id="copyLink">Copiar link desta página</button><span class="share-ok" id="copyOk" hidden>Link copiado</span></div>
     </div>
     <div class="grid" id="grid" style="margin-top:24px"></div>
   </div>
@@ -949,7 +953,26 @@ function renderFilters(){
   $("menu").innerHTML = seg + (resto.length ? `<div class="mcat">Produtos</div>` + resto.map(c =>
       `<a href="#catalogo" class="msub" data-cat="${c}">${c}</a>`).join("") : "");
 }
-function go(c, t){ curCat = c; curTab = t ?? tabsOf(c)[0]; renderFilters(); renderGrid(); }
+// Link próprio para cada página (ex.: destinocriativo.com.br/#adesivos)
+const slug = x => x.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+const pageSlug = (c, t) => slug(c) + (tabsOf(c).length > 1 ? "-" + slug(t) : "");
+function fromHash(){
+  const h = decodeURIComponent(location.hash.slice(1));
+  if (!h) return false;
+  for (const c of CATS) for (const t of tabsOf(c)) {
+    if (h === pageSlug(c, t) || (h === slug(c))) { curCat = c; curTab = h === slug(c) ? tabsOf(c)[0] : t; return true; }
+  }
+  return false;
+}
+function setHash(){ try { history.replaceState(null, "", "#" + pageSlug(curCat, curTab)); } catch (e) {} }
+window.addEventListener("hashchange", () => { if (fromHash()) { renderFilters(); renderGrid(); } });
+function go(c, t){ curCat = c; curTab = t ?? tabsOf(c)[0]; setHash(); renderFilters(); renderGrid(); }
+$("copyLink").addEventListener("click", async () => {
+  const url = location.href.split("#")[0] + "#" + pageSlug(curCat, curTab);
+  try { await navigator.clipboard.writeText(url); $("copyOk").textContent = "Link copiado"; }
+  catch (e) { $("copyOk").textContent = url; }
+  $("copyOk").hidden = false; setTimeout(() => $("copyOk").hidden = true, 4000);
+});
 $("cats").addEventListener("click", e => { const b = e.target.closest(".cat"); if (b) go(b.dataset.cat); });
 $("subs").addEventListener("click", e => { const b = e.target.closest(".subtab"); if (b) go(curCat, b.dataset.tab); });
 $("menu").addEventListener("click", e => { const a = e.target.closest("a[data-cat]"); if (a) go(a.dataset.cat, a.dataset.tab); });
@@ -1113,7 +1136,7 @@ $("menu").addEventListener("click", closeMenu);
 let tt;
 function toast(t){ const el = $("toast"); el.textContent = t; el.hidden = false; clearTimeout(tt); tt = setTimeout(() => el.hidden = true, 1500); }
 
-renderFilters(); renderGrid(); renderCart();
+fromHash(); renderFilters(); renderGrid(); renderCart();
 </script>
 
 </html>
