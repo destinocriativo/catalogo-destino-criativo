@@ -217,6 +217,26 @@ main .wrap{padding-block:24px 64px}
   .drawer:not([hidden]){animation:slide .25s ease-out}
   @keyframes slide{from{transform:translateX(40px);opacity:.5}}
 }
+.custom-size{display:flex;gap:10px;align-items:flex-start;margin-top:4px;padding:10px 12px;border-radius:10px;background:var(--accent-soft);color:var(--ink);text-decoration:none;font-size:13px;line-height:1.4}
+.custom-size svg{color:var(--wa);margin-top:1px}
+.custom-size b{display:block}
+.custom-size:hover{box-shadow:0 0 0 1.5px var(--accent) inset}
+.ask{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:40;width:min(420px,calc(100% - 32px));background:var(--surface);color:var(--ink);border-radius:16px;padding:28px 24px 22px;text-align:center;box-shadow:0 30px 60px -20px rgba(0,0,0,.45);display:grid;gap:10px;justify-items:center}
+#askScrim{z-index:39}
+.ask-check{width:48px;height:48px;border-radius:50%;background:#e3f4e8;color:var(--wa);display:grid;place-items:center}
+.ask h2{margin:0;font-size:20px}
+.ask p{margin:0;color:var(--muted);font-size:14px;line-height:1.45}
+.ask-btns{display:grid;gap:10px;width:100%;margin-top:8px}
+.ask-finish{background:var(--wa);color:#fff;border:0;border-radius:12px;padding:14px;font-weight:700;font-size:16px}
+.ask-finish:hover{background:var(--wa-hover)}
+.ask-more{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:13px;font-weight:600;font-size:15px}
+.cart-bar{position:fixed;left:0;right:0;bottom:0;z-index:15;display:flex;justify-content:space-between;align-items:center;gap:12px;border:0;background:var(--wa);color:#fff;font-weight:600;font-size:15px;padding:14px max(16px,env(safe-area-inset-right,0px)) calc(14px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));box-shadow:0 -8px 24px -12px rgba(0,0,0,.35)}
+.cart-bar:hover{background:var(--wa-hover)}
+.cb-left{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.cb-right{white-space:nowrap;font-variant-numeric:tabular-nums}
+.cart-bar:not([hidden]) ~ * {}
+main .wrap{padding-bottom:96px}
+@media (prefers-reduced-motion:no-preference){.ask:not([hidden]){animation:pop .2s ease-out}@keyframes pop{from{opacity:0;transform:translate(-50%,-46%)}}}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:14px;font-weight:500;z-index:30}
 </style>
 
@@ -302,6 +322,22 @@ main .wrap{padding-block:24px 64px}
 </aside>
 
 <div class="toast" id="toast" hidden></div>
+
+<div class="scrim" id="askScrim" hidden></div>
+<div class="ask" id="ask" role="dialog" aria-modal="true" aria-labelledby="askTitle" hidden>
+  <div class="ask-check" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+  <h2 id="askTitle">Adicionado ao carrinho</h2>
+  <p id="askItem"></p>
+  <div class="ask-btns">
+    <button type="button" class="ask-finish" id="askFinish">Finalizar pedido</button>
+    <button type="button" class="ask-more" id="askMore">Continuar comprando</button>
+  </div>
+</div>
+
+<button type="button" class="cart-bar" id="cartBar" hidden>
+  <span class="cb-left"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11h10.2L20 7H6.2"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg>Finalizar pedido</span>
+  <span class="cb-right"><span id="cbCount"></span> · <span id="cbTotal"></span> ›</span>
+</button>
 
 <script>
 // ================= CONFIGURAÇÃO =================
@@ -990,6 +1026,8 @@ $("subs").addEventListener("click", e => { const b = e.target.closest(".subtab")
 $("menu").addEventListener("click", e => { const a = e.target.closest("a[data-cat]"); if (a) go(a.dataset.cat, a.dataset.tab); });
 
 const sizeSel = {}, varSel = {};
+const waLink = t => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(t)}`;
+const isSticker = p => placesOf(p).some(x => x.category === "Adesivos" || x.tab === "Adesivo");
 const qtyTxt = (p, n) => `${un(n)} ${p.unitMany || "unidades"}`;
 const optsOf = (p, si = sizeSel[p.id] ?? 0) => p.sizes ? p.sizes[si].options : p.options;
 const varsOf = p => p.variants ? [].concat(p.variants) : [];
@@ -1025,6 +1063,9 @@ function renderGrid(){
             <span class="q"><b>${qtyTxt(p, o.qty)}</b><small>${o.unit || brl(Math.floor(o.price / o.qty * 100 + 1e-6) / 100)} por ${p.unitOne || "unidade"}</small></span>
             <span class="v">${brl(o.price)}</span>
           </label>`).join("")}
+        ${isSticker(p) ? `<a class="custom-size" href="${waLink(`Olá! Vi o ${p.name} no catálogo e queria um orçamento em outro tamanho.`)}" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 20.5 5 16a8.5 8.5 0 1 1 3.2 3.1Z"/></svg>
+          <span><b>Precisa de outro tamanho?</b> Fazemos sob medida. Pergunte no WhatsApp</span></a>` : ""}
       </fieldset>
       <div class="buy">
         <div><small>Valor da opção</small><b id="val-${p.id}">${brl(sel.price)}</b></div>
@@ -1056,7 +1097,7 @@ $("grid").addEventListener("click", e => {
   const pid = b.dataset.pid, oi = choice[pid], si = sizeSel[pid] ?? 0, vi = (varSel[pid] || []).join(",");
   const ex = cart.find(c => c.pid === pid && c.oi === oi && c.si === si && c.vi === vi);
   ex ? ex.count++ : cart.push({ pid, oi, si, vi, count: 1 });
-  renderCart(); toast("Adicionado ao carrinho");
+  renderCart(); askNext(PRODUCTS.find(x => x.id === pid), cart.find(c => c.pid === pid && c.oi === oi && c.si === si && c.vi === vi));
 });
 
 const line = c => {
@@ -1069,6 +1110,9 @@ const total = () => cart.reduce((s, c) => s + line(c).o.price * c.count, 0);
 
 function renderCart(){
   const n = cart.reduce((s, c) => s + c.count, 0);
+  $("cartBar").hidden = !n;
+  $("cbCount").textContent = n === 1 ? "1 item" : `${n} itens`;
+  $("cbTotal").textContent = brl(total());
   $("count").textContent = $("count2").textContent = n;
   $("items").innerHTML = cart.length ? cart.map((c, i) => {
     const { p, o, pick } = line(c);
@@ -1146,6 +1190,17 @@ document.addEventListener("click", e => { if (!e.target.closest(".menu-wrap")) c
 $("menu").addEventListener("click", closeMenu);
 
 let tt;
+function askNext(p, c){
+  const { o, pick } = line(c);
+  $("askItem").textContent = `${p.name}${pick ? " · " + pick : ""} · ${qtyTxt(p, o.qty)} · ${brl(o.price)}`;
+  $("ask").hidden = $("askScrim").hidden = false; $("askFinish").focus();
+}
+const closeAsk = () => { $("ask").hidden = $("askScrim").hidden = true; };
+$("askFinish").addEventListener("click", () => { closeAsk(); openCart(); });
+$("askMore").addEventListener("click", closeAsk);
+$("askScrim").addEventListener("click", closeAsk);
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeAsk(); });
+$("cartBar").addEventListener("click", openCart);
 function toast(t){ const el = $("toast"); el.textContent = t; el.hidden = false; clearTimeout(tt); tt = setTimeout(() => el.hidden = true, 1500); }
 
 fromHash(); renderFilters(); renderGrid(); renderCart(); focusProduct();
