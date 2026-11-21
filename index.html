@@ -67,6 +67,7 @@ header .wrap{display:flex;align-items:center;gap:16px;padding-block:18px}
 .cat-btns{display:flex;gap:10px;flex-wrap:wrap}
 .product{scroll-margin-top:160px;transition:box-shadow .3s}
 .product.is-focus{box-shadow:0 0 0 3px var(--accent)}
+.copy-prod{order:99;background:none;border:0;padding:2px 0 0;color:var(--accent);font-size:12px;font-weight:600;text-decoration:underline;text-underline-offset:3px}
 .share-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .share-link{background:none;border:0;padding:0;color:var(--accent);font-weight:600;font-size:13px;text-decoration:underline;text-underline-offset:3px}
 .share-ok{font-size:13px;color:var(--muted);word-break:break-all}
@@ -349,6 +350,7 @@ const WHATSAPP = "5519982326042";
 const PRODUCTS = [
   {
     id: "certificado-10x9",
+    link: "certificado-premium",
     name: "Certificado de Garantia 10x9 cm",
     category: "Joias",          // categoria (botão grande)
     tab: "Certificados",        // aba dentro da categoria
@@ -366,6 +368,7 @@ const PRODUCTS = [
   },
   {
     id: "certificado-10x9-hot-stamping",
+    link: "certificado-luxo",
     name: "Certificado de Garantia 10x9 cm",
     category: "Joias",
     tab: "Certificados",
@@ -384,6 +387,7 @@ const PRODUCTS = [
   },
   {
     id: "certificado-dobrado-premium",
+    link: "certificado-dobrado",
     name: "Certificado Dobrado 9x7,5 cm",
     category: "Joias",
     tab: "Certificados",
@@ -401,6 +405,7 @@ const PRODUCTS = [
   },
   {
     id: "livreto-4x5",
+    link: "certificado-livreto",
     name: "Livreto Certificado 4x5 cm",
     category: "Joias",
     tab: "Certificados",
@@ -416,6 +421,7 @@ const PRODUCTS = [
   },
   {
     id: "flip-9x5-hot-stamping",
+    link: "certificado-flip",
     name: "Flip Certificado Duplo 9x5 cm",
     category: "Joias",
     tab: "Certificados",
@@ -433,6 +439,7 @@ const PRODUCTS = [
   },
   {
     id: "panfleto-agradecimento-9x14",
+    link: "panfleto",
     name: "Panfleto de Agradecimento 9x14 cm",
     category: "Joias",
     tab: "Agradecimento",
@@ -463,6 +470,7 @@ const PRODUCTS = [
   },
   {
     id: "cartao-visita-luxo",
+    link: "cartao-visita-luxo",
     name: "Cartão de Visita",
     category: "Cartão de visita",
     tab: "Todos os modelos",
@@ -480,6 +488,7 @@ const PRODUCTS = [
   },
   {
     id: "cartao-visita-essencial",
+    link: "cartao-visita-essencial",
     name: "Cartão de Visita",
     category: "Cartão de visita",
     tab: "Todos os modelos",
@@ -496,6 +505,7 @@ const PRODUCTS = [
   },
   {
     id: "cartao-visita-premium",
+    link: "cartao-visita-premium",
     name: "Cartão de Visita",
     category: "Cartão de visita",
     tab: "Todos os modelos",
@@ -513,6 +523,7 @@ const PRODUCTS = [
   },
   {
     id: "cartao-feed-premium",
+    link: "cartao-feed",
     name: "Cartão Feed",
     category: "Cartão de visita",
     tab: "Todos os modelos",
@@ -530,6 +541,7 @@ const PRODUCTS = [
   },
   {
     id: "cartao-corte-personalizado",
+    link: "cartao-corte",
     name: "Cartão com Corte Personalizado",
     category: "Cartão de visita",
     tab: "Todos os modelos",
@@ -545,6 +557,7 @@ const PRODUCTS = [
   },
   {
     id: "vela-agradecimento-cuidados-premium",
+    link: "vela-cartao-premium",
     name: "Cartão Agradecimento + Cuidados 10x9 cm",
     category: "Vela",
     tab: "Cartões",
@@ -562,6 +575,7 @@ const PRODUCTS = [
   },
   {
     id: "vela-agradecimento-cuidados-essencial",
+    link: "vela-cartao-essencial",
     name: "Cartão Agradecimento + Cuidados 10x9 cm",
     category: "Vela",
     tab: "Cartões",
@@ -579,6 +593,7 @@ const PRODUCTS = [
   },
   {
     id: "tag-roupas-9x5-premium",
+    link: "tag-roupa-premium",
     name: "Tag 9x5 cm",
     category: "Loja de roupas",
     tab: "Tags",
@@ -595,6 +610,7 @@ const PRODUCTS = [
   },
   {
     id: "tag-roupas-9x5-essencial",
+    link: "tag-roupa-essencial",
     name: "Tag 9x5 cm",
     category: "Loja de roupas",
     tab: "Tags",
@@ -611,6 +627,7 @@ const PRODUCTS = [
   },
   {
     id: "vela-adesivo-vinil",
+    link: "adesivo-vinil",
     name: "Adesivo Vinil",
     category: "Vela",
     tab: "Adesivo",
@@ -639,6 +656,7 @@ const PRODUCTS = [
   },
   {
     id: "sacola-pequena",
+    link: "sacola-pequena",
     name: "Sacola Pequena",
     category: "Joias",
     tab: "Sacolas",
@@ -675,6 +693,7 @@ const PRODUCTS = [
   },
   {
     id: "sacola-media",
+    link: "sacola-media",
     name: "Sacola Média",
     category: "Loja de roupas",
     tab: "Sacolas",
@@ -710,6 +729,7 @@ const PRODUCTS = [
   },
   {
     id: "cartao-agradecimento-luxo",
+    link: "agradecimento-luxo",
     name: "Cartão de Agradecimento 10x9 cm",
     category: "Cartão de agradecimento",
     tab: "Todos os modelos",
@@ -733,6 +753,7 @@ const PRODUCTS = [
   },
   {
     id: "cartao-agradecimento-essencial",
+    link: "agradecimento-essencial",
     name: "Cartão de Agradecimento 10x9 cm",
     category: "Cartão de agradecimento",
     tab: "Todos os modelos",
@@ -755,6 +776,7 @@ const PRODUCTS = [
   },
   {
     id: "fita-cetim-personalizada",
+    link: "fita-cetim",
     name: "Fita de Cetim Personalizada",
     category: "Confeitaria",
     tab: "Fita de cetim",
@@ -781,6 +803,7 @@ const PRODUCTS = [
   },
   {
     id: "adesivo-fecha-caixa-10x5",
+    link: "adesivo-fecha-caixa",
     name: "Adesivo Fecha Caixa 10x5 cm",
     category: "Adesivos",
     tab: "Todos os modelos",
@@ -797,6 +820,7 @@ const PRODUCTS = [
   },
   {
     id: "adesivo-pote-pate-6x4",
+    link: "adesivo-pote-pate",
     name: "Adesivo para Pote Patê",
     category: "Vela",
     tab: "Adesivo",
@@ -821,6 +845,7 @@ const PRODUCTS = [
   },
   {
     id: "adesivo-pote-whisky-5x6",
+    link: "adesivo-pote-whisky",
     name: "Adesivo para Pote Whisky",
     category: "Vela",
     tab: "Adesivo",
@@ -855,6 +880,7 @@ const PRODUCTS = [
   },
   {
     id: "tag-confeitaria-4x48",
+    link: "tag-confeitaria",
     name: "Tag Personalizada 4x4,8 cm",
     category: "Confeitaria",
     tab: "Tag",
@@ -875,7 +901,7 @@ const PRODUCTS = [
     name: "Adesivo Bopp Fosco com Hot Stamping",
     category: "Adesivos",
     tab: "Todos os modelos",
-    also: [{ category: "Vela", tab: "Adesivo" }],
+    also: [{ category: "Vela", tab: "Adesivo" }, { category: "Confeitaria", tab: "Adesivo" }],
     finish: "Hot stamping",
     desc: "Adesivo em bopp fosco. Escolha o tamanho e a cor do hot stamping",
     spec: "Bopp fosco · 1 arte por tiragem",
@@ -1015,6 +1041,12 @@ function focusProduct(){
 function setHash(){ try { history.replaceState(null, "", "#" + pageSlug(curCat, curTab)); } catch (e) {} }
 window.addEventListener("hashchange", () => { if (fromHash()) { renderFilters(); renderGrid(); focusProduct(); } });
 function go(c, t){ curCat = c; curTab = t ?? tabsOf(c)[0]; setHash(); renderFilters(); renderGrid(); }
+$("grid").addEventListener("click", async e => {
+  const b = e.target.closest(".copy-prod"); if (!b) return;
+  const url = location.href.split("#")[0] + "#" + b.dataset.link;
+  try { await navigator.clipboard.writeText(url); toast("Link do produto copiado"); }
+  catch (err) { toast(url); }
+});
 $("copyLink").addEventListener("click", async () => {
   const url = location.href.split("#")[0] + "#" + pageSlug(curCat, curTab);
   try { await navigator.clipboard.writeText(url); $("copyOk").textContent = "Link copiado"; }
@@ -1043,7 +1075,7 @@ function renderGrid(){
     const m = (sz && (sz.image || sz.video) && sz) || (p.placeMedia && p.placeMedia[curCat]) || p;
     return `<article class="product" data-id="${p.id}">
       <h3>${p.name}</h3>
-      ${true ? `<div class="sub">${p.tier || p.highlight ? `<div class="pills">${p.tier ? `<span class="tier-pill">${p.tier}</span>` : ""}${p.highlight ? `<span class="hl-pill">★ ${p.highlight}</span>` : ""}</div>` : ""}${p.finish ? `<span class="finish"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.2 6.6L21 11l-6.8 2.4L12 20l-2.2-6.6L3 11l6.8-2.4z"/></svg>Acabamento: ${p.finish}</span>` : ""}${p.desc ? `<p class="desc">${p.desc}</p>` : ""}${p.spec ? `<p>${p.spec}</p>` : ""}</div>` : ""}
+      ${true ? `<div class="sub"><button type="button" class="copy-prod" data-link="${p.link || p.id}">Copiar link do produto</button>${p.tier || p.highlight ? `<div class="pills">${p.tier ? `<span class="tier-pill">${p.tier}</span>` : ""}${p.highlight ? `<span class="hl-pill">★ ${p.highlight}</span>` : ""}</div>` : ""}${p.finish ? `<span class="finish"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.2 6.6L21 11l-6.8 2.4L12 20l-2.2-6.6L3 11l6.8-2.4z"/></svg>Acabamento: ${p.finish}</span>` : ""}${p.desc ? `<p class="desc">${p.desc}</p>` : ""}${p.spec ? `<p>${p.spec}</p>` : ""}</div>` : ""}
       <div class="photo${m.video || m.image ? " media" : ""}${p.fit === "contain" ? " fit-contain" : ""}">
         <span class="tag">${tabsOf(curCat).length > 1 ? curTab : curCat}</span>
         ${p.finish ? `<span class="finish-photo">${p.finish}</span>` : ""}
